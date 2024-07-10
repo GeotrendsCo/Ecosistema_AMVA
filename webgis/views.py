@@ -501,7 +501,6 @@ def generateReport(request):
                 gdf_scaled.plot(ax=ax, fc=gdf_scaled['color'], ec='none', markersize=10)
                 try:
                     # Crear un mapa centrado en las coordenadas medias de tu GeoDataFrame
-                    m = folium.Map(location=[gdf.geometry.centroid.y.mean(), gdf.geometry.centroid.x.mean()], zoom_start=12)
                     cx.add_basemap(ax, crs=gdf.crs, source="https://tile.openstreetmap.org/{z}/{x}/{y}.png")
                 except:
                     print('No se pudo agregar el mapa base')
