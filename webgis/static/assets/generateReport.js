@@ -31,8 +31,6 @@ generateReport.addEventListener('click', async (e) => {
             postData.polygon = polygonVertices_deployMap;
         }
 
-        console.log(postData)
-
         let response = await fetch('/webGisApi/report/', {
             method: 'POST',
             headers: {
