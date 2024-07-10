@@ -1,3 +1,4 @@
 venv/
 webgis/static/assets/AMVA.json
+**/__pycache__/
 # webgis/static/assets/factorModificacion.csv

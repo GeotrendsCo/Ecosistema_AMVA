@@ -10,7 +10,6 @@ from django.http import JsonResponse
 import pandas as pd
 import numpy as np
 
-# 
 # from weasyprint import default_url_fetcher, HTML, CSS
 from django.template.loader import render_to_string
 # from weasyprint.text.fonts import FontConfiguration
@@ -177,7 +176,7 @@ def filtrarPuntos(request):
         vertices = json.loads(vertices_json)
 
         # Cargar el archivo GeoJSON
-        with open('AMVA_USB/webgis/static/assets/AMVA.json', 'r') as f:
+        with open('webgis/static/assets/AMVA.json', 'r') as f:
             geojson = json.load(f)
 
         # Filtrar los puntos en el polígono
@@ -191,7 +190,7 @@ def filtrarPuntos(request):
 
 def filtroConsulta (startDate, finalDate, startHour, finalHour, timeRange):
 
-    geoJson = pd.read_csv('AMVA_USB/webgis/static/assets/factorModificacion.csv')
+    geoJson = pd.read_csv('webgis/static/assets/factorModificacion.csv')
     geoJson['timeStamp'] = pd.to_datetime(geoJson['timeStamp'])
 
     startDateFil = pd.to_datetime(startDate)
@@ -332,6 +331,8 @@ def texto_timeRange(rango):
 def generateReport(request):
     if request.method == 'POST':
         try:
+            print('-- Generando reporte --')
+            print('Cargando datos...')
             body_unicode = request.body.decode('utf-8')
             body_data = json.loads(body_unicode)
 
@@ -339,9 +340,10 @@ def generateReport(request):
             polygonVertices = body_data.get('polygon')
 
             # Cargar el archivo GeoJSON
-            with open('AMVA_USB/webgis/static/assets/AMVA.json', 'r') as f:
+            with open('webgis/static/assets/AMVA.json', 'r') as f:
                 geojson = json.load(f)
 
+            print('Filtrando puntos...')
             # Filtrar los puntos en el polígono
             puntosGeoJson = filtrarPuntosEnPoligono(geojson, polygonVertices)
 
@@ -372,11 +374,11 @@ def generateReport(request):
             cbar = fig.colorbar(sm, ax=ax, orientation='horizontal', fraction=0.05, pad=0.15)
             cbar.set_label('Nivel de Presión Sonora LAeq (dB)')
 
-            plt.title("Mapa Ruido AMVA 2022")
-            plt.xlabel("Longitud")
-            plt.ylabel("Latitud")
+            ax.set_title("Mapa Ruido AMVA 2022")
+            ax.set_xlabel("Longitud")
+            ax.set_ylabel("Latitud")
             fig.tight_layout()
-            plt.savefig(img_buffer, format='png')
+            fig.savefig(img_buffer, format='png')
             plt.close(fig)
 
             img_buffer.seek(0)
@@ -481,6 +483,7 @@ def generateReport(request):
             elements.append(Spacer(1, 12))
 
             if body_data.get('factoresAforo') != None:
+                print('Generando mapa aforo...')
                 factoresAforo = body_data.get('factoresAforo')
 
                 elements.append(Paragraph("MAPA DE RUIDO CON VARIACIÓN DE CONDICIONES DE FLUJO VEHICULAR SEGÚN TIPOLOGÍA DE VÍAS", estilo_titulo))
@@ -508,11 +511,11 @@ def generateReport(request):
                 cbar = fig.colorbar(sm, ax=ax, orientation='horizontal', fraction=0.05, pad=0.15)
                 cbar.set_label('Nivel de Presión Sonora LAeq (dB)')
 
-                plt.title("Mapa Ruido AMVA 2022 - Modificación Aforo")
-                plt.xlabel("Longitud")
-                plt.ylabel("Latitud")
+                ax.set_title("Mapa Ruido AMVA 2022 - Modificación Aforo")
+                ax.set_xlabel("Longitud")
+                ax.set_ylabel("Latitud")
                 fig.tight_layout()
-                plt.savefig(img_buffer, format='png')
+                fig.savefig(img_buffer, format='png')
                 plt.close(fig)
 
                 img_buffer.seek(0)
@@ -537,6 +540,7 @@ def generateReport(request):
                 elements.append(Spacer(1, 12))
 
             if body_data.get('consulta') != None:
+                print('Generando mapa consulta...')
                 # Extraer los datos del cuerpo de la solicitud
                 consulta = body_data.get('consulta')
                 startDate = consulta['iDate']
@@ -569,11 +573,11 @@ def generateReport(request):
                 cbar = fig.colorbar(sm, ax=ax, orientation='horizontal', fraction=0.05, pad=0.15)
                 cbar.set_label('Nivel de Presión Sonora LAeq (dB)')
 
-                plt.title("Registro histórico (2019) - Modificación Aforo")
-                plt.xlabel("Longitud")
-                plt.ylabel("Latitud")
+                ax.set_title("Registro histórico (2019) - Modificación Aforo")
+                ax.set_xlabel("Longitud")
+                ax.set_ylabel("Latitud")
                 fig.tight_layout()
-                plt.savefig(img_buffer, format='png')
+                fig.savefig(img_buffer, format='png')
                 plt.close(fig)
 
                 img_buffer.seek(0)
@@ -615,6 +619,8 @@ def generateReport(request):
 
             response = HttpResponse(buffer, content_type='application/pdf')
             response['Content-Disposition'] = 'inline; filename="reporte.pdf"'
+
+            print('-- Reporte generado --')
 
             return response
         
