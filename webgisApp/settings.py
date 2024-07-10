@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-wwbx7zyebzk14$@wte!0*ncol^f8t60=#q%zuq!g#m4ma#trls
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.1.33', '172.16.0.94']
+ALLOWED_HOSTS = ['*']
 
 # DATA_UPLOAD_MAX_MEMORY_SIZE = 104857600  # 100 MB
 
