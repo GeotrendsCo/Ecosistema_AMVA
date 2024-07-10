@@ -177,7 +177,7 @@ def filtrarPuntos(request):
         vertices = json.loads(vertices_json)
 
         # Cargar el archivo GeoJSON
-        with open('AMVA_USB/webgis/static/assets/AMVA.json', 'r') as f:
+        with open('webgis/static/assets/AMVA.json', 'r') as f:
             geojson = json.load(f)
 
         # Filtrar los puntos en el polígono
@@ -191,7 +191,7 @@ def filtrarPuntos(request):
 
 def filtroConsulta (startDate, finalDate, startHour, finalHour, timeRange):
 
-    geoJson = pd.read_csv('AMVA_USB/webgis/static/assets/factorModificacion.csv')
+    geoJson = pd.read_csv('webgis/static/assets/factorModificacion.csv')
     geoJson['timeStamp'] = pd.to_datetime(geoJson['timeStamp'])
 
     startDateFil = pd.to_datetime(startDate)
@@ -354,7 +354,11 @@ def generateReport(request):
             plt.switch_backend('Agg')
             fig, ax = plt.subplots(figsize=(5, 5))
             gdf.plot(ax=ax, color=gdf['color'], ec='none', markersize=10, alpha=1)
-            cx.add_basemap(ax, crs=gdf.crs)
+
+            try:
+                cx.add_basemap(ax, crs=gdf.crs, source="https://tile.openstreetmap.org/{z}/{x}/{y}.png")
+            except:
+                print('No se pudo agregar el mapa base')
 
             # Crear un mapa de colores para la barra de colores
             cmap = mcolors.ListedColormap([
@@ -495,7 +499,10 @@ def generateReport(request):
                 plt.switch_backend('Agg')
                 fig, ax = plt.subplots(figsize=(5, 5))
                 gdf_scaled.plot(ax=ax, fc=gdf_scaled['color'], ec='none', markersize=10)
-                cx.add_basemap(ax, crs=gdf_scaled.crs)
+                try:
+                    cx.add_basemap(ax, crs=gdf.crs, source="https://tile.openstreetmap.org/{z}/{x}/{y}.png")
+                except:
+                    print('No se pudo agregar el mapa base')
 
                 cbar = fig.colorbar(sm, ax=ax, orientation='horizontal', fraction=0.05, pad=0.15)
                 cbar.set_label('Nivel de Presión Sonora LAeq (dB)')
@@ -553,7 +560,10 @@ def generateReport(request):
                 plt.switch_backend('Agg')
                 fig, ax = plt.subplots(figsize=(5, 5))
                 gdf_scaled.plot(ax=ax, fc=gdf_scaled['color'], ec='none', markersize=10)
-                cx.add_basemap(ax, crs=gdf_scaled.crs)
+                try:
+                    cx.add_basemap(ax, crs=gdf.crs, source="https://tile.openstreetmap.org/{z}/{x}/{y}.png")
+                except:
+                    print('No se pudo agregar el mapa base')
 
                 cbar = fig.colorbar(sm, ax=ax, orientation='horizontal', fraction=0.05, pad=0.15)
                 cbar.set_label('Nivel de Presión Sonora LAeq (dB)')
