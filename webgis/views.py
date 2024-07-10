@@ -177,7 +177,7 @@ def filtrarPuntos(request):
         vertices = json.loads(vertices_json)
 
         # Cargar el archivo GeoJSON
-        with open('webgis/static/assets/AMVA.json', 'r') as f:
+        with open('AMVA_USB/webgis/static/assets/AMVA.json', 'r') as f:
             geojson = json.load(f)
 
         # Filtrar los puntos en el polígono
@@ -191,7 +191,7 @@ def filtrarPuntos(request):
 
 def filtroConsulta (startDate, finalDate, startHour, finalHour, timeRange):
 
-    geoJson = pd.read_csv('webgis/static/assets/factorModificacion.csv')
+    geoJson = pd.read_csv('AMVA_USB/webgis/static/assets/factorModificacion.csv')
     geoJson['timeStamp'] = pd.to_datetime(geoJson['timeStamp'])
 
     startDateFil = pd.to_datetime(startDate)
@@ -339,7 +339,7 @@ def generateReport(request):
             polygonVertices = body_data.get('polygon')
 
             # Cargar el archivo GeoJSON
-            with open('webgis/static/assets/AMVA.json', 'r') as f:
+            with open('AMVA_USB/webgis/static/assets/AMVA.json', 'r') as f:
                 geojson = json.load(f)
 
             # Filtrar los puntos en el polígono
@@ -500,6 +500,8 @@ def generateReport(request):
                 fig, ax = plt.subplots(figsize=(5, 5))
                 gdf_scaled.plot(ax=ax, fc=gdf_scaled['color'], ec='none', markersize=10)
                 try:
+                    # Crear un mapa centrado en las coordenadas medias de tu GeoDataFrame
+                    m = folium.Map(location=[gdf.geometry.centroid.y.mean(), gdf.geometry.centroid.x.mean()], zoom_start=12)
                     cx.add_basemap(ax, crs=gdf.crs, source="https://tile.openstreetmap.org/{z}/{x}/{y}.png")
                 except:
                     print('No se pudo agregar el mapa base')
