@@ -446,7 +446,7 @@ def generateReport(request):
             elements.append(Spacer(1, 12))
 
             # Añadir el gráfico al PDF
-            elements.append(Image(img_buffer, width=400, height=400))
+            elements.append(Image(img_buffer, width=450, height=450))
             elements.append(Spacer(1, 12))
 
             # Información en forma de tabla            
