@@ -47,7 +47,7 @@ $('#formularioConsulta').submit(function (event) {
 
     document.getElementById('searchInitialDate').innerHTML = formData.iDate;
     document.getElementById('searchFinalDate').innerHTML = formData.fDate;
-    document.getElementById('searchHourRange').innerHTML = 'Entre las <b>' + formData.iHour + ' Hrs</b> y las <b>' + formData.fHour +' Hrs</b>.' ;
+    document.getElementById('searchHourRange').innerHTML = 'Entre las <b>' + formData.iHour + ' horas</b> y las <b>' + formData.fHour +' horas</b>.' ;
     document.getElementById('searchCurrentDate').textContent = new Date().toLocaleDateString();
     
     // Enviar los datos al servidor

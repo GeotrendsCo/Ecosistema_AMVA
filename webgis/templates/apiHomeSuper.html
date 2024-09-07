@@ -28,8 +28,7 @@
 
         <div id="reDrawPolygon" class="row mx-1" style="display: none;">
             <h5 class="card-title" style="color: rgb(87, 87, 87);">Área de consulta</h5>
-            <p class="card-text">Para modificar el área de trabajo, por favor de clic en el siguiente botón y seleccione
-                otro polígono.</p>
+            <p class="card-text">Para modificar el área de trabajo, por favor de clic en el siguiente botón.</p>
             <button id="reDrawPolygonButton" class="btn btn-custom my-1" style="width: auto;">
                 Modificar área
                 <i class="fa-solid fa-pen-to-square"></i>
@@ -42,7 +41,7 @@
                 <h5 class="card-title" style="color: rgb(87, 87, 87);">Área de consulta</h5>
                 <p class="card-text">Defina un área en el mapa para realizar una consulta de información.*</p>
                 <div id="custom-controls" class="row">
-                    <p style="font-weight: 500;">Define un área en el mapa.</p>
+                    <!-- <p style="font-weight: 500;">Define un área en el mapa.</p> -->
                     <button id="custom-draw-btn" class="btn btn-custom m-1" style="width: auto;">
                         Dibujar <i class="fa-solid fa-draw-polygon"></i>
                     </button>
@@ -74,7 +73,7 @@
             <!-- MODULO DE CONSULTA -->
             <div class="row mx-1 d-flex justify-content-center align-items-center">
                 <h5 class="card-title" style="color: rgb(87, 87, 87);">Registro histórico</h5>
-                <p class="card-text">Seleccione el rango de fecha y horario de consulta para la información histórica.*
+                <p class="card-text">Seleccione el rango de fecha y horario de consulta.*
                 </p>
 
                 <form id="formularioConsulta" class="col" style="min-height: 100%;" method="POST">
@@ -168,7 +167,7 @@
                         &copy AMVA 2024
                     </div>
                 </div>
-                <p><em>* información correspondiente a reportes de aforo del proyecto CITRA.</em></p>
+                <p><em>* Información correspondiente a reportes de aforo del proyecto CITRA.</em></p>
                 <p><em>* Si no ha realizado una consulta, la información desplegada corresponde al mapa de ruido vigente
                         (2022).</em></p>
             </div>
@@ -179,7 +178,8 @@
             <div class="row mx-1 d-flex justify-content-start align-items-center">
                 <h5 class="card-title" style="color: rgb(87, 87, 87);">Variación del flujo vehícular</h5>
                 <p class="card-text">Ajuste el porcentaje de contribución del aforo vehicular (reducción o aumento),
-                    según la tipología de vía, para evaluar las variaciones en los niveles de ruido.</p>
+                    según la tipología de vía, para evaluar las variaciones en los niveles de ruido. <br>
+                    Un flujo al 100% significa duplicar la cantidad de vehículos, mientras que -100% ccorresponde a que la vía estará completamente libre de flujo vehicular.</p>
                 <div class="row mt-2 mb-2">
                     <button onclick="resetRoads()" class="btn btn-custom" style="width: auto;">
                         Reestablecer

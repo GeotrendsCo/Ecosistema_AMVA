@@ -446,8 +446,8 @@ def generateReport(request):
             elements.append(Spacer(1, 12))
 
             # Añadir el gráfico al PDF
-            elements.append(Image(img_buffer, width=400, height=400))
-            elements.append(Spacer(1, 12))
+            elements.append(Image(img_buffer, width=450, height=450))
+            elements.append(Spacer(1, 14))
 
             # Información en forma de tabla            
             stringVertices = ""
@@ -521,7 +521,7 @@ def generateReport(request):
                 img_buffer.seek(0)
 
                 # Añadir el gráfico al PDF
-                elements.append(Image(img_buffer, width=400, height=400))
+                elements.append(Image(img_buffer, width=450, height=450))
                 elements.append(Spacer(1, 12))
 
                 info_data = [
@@ -583,7 +583,7 @@ def generateReport(request):
                 img_buffer.seek(0)
 
                 # Añadir el gráfico al PDF
-                elements.append(Image(img_buffer, width=400, height=400))
+                elements.append(Image(img_buffer, width=450, height=450))
                 elements.append(Spacer(1, 12))
 
                 info_data = [
